@@ -1,7 +1,24 @@
-web:
-  build: .
-  volumes:
-    - ".:/app:rw"
-  ports:
-    - "8000:80"
-  command: npm start
+version: "2"
+
+services:
+  base_build:
+    build: "."
+    image: stefanfoulis/timelapseapp-ui:local
+
+  base: &BASE
+    image: stefanfoulis/timelapseapp-ui:local
+    depends_on:
+      - "base_build"
+    command: bash
+    volumes:
+      - "timelapseapp-ui-src-sync:/app:rw"
+
+  web:
+    <<: *BASE
+    command: npm start
+    environment:
+      VIRTUAL_HOST: timelapseapp-ui.divio.me
+
+volumes:
+  timelapseapp-ui-src-sync:
+    external: true
