@@ -4,6 +4,7 @@ services:
   base_build:
     build: "."
     image: stefanfoulis/timelapseapp-ui:local
+    command: "true"
 
   base: &BASE
     image: stefanfoulis/timelapseapp-ui:local
@@ -11,7 +12,7 @@ services:
       - "base_build"
     command: bash
     volumes:
-      - "timelapseapp-ui-src-sync:/app:rw"
+      - "timelapseapp-ui-src-sync:/app:nocopy"
 
   web:
     <<: *BASE
