@@ -1,0 +1,30 @@
+.sidebar {
+  background: rgba(255, 255, 255, 0.8);
+  width: 301px;
+  border-right: 1px solid #ccc;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  padding-top: 90px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 3px; }
+  .sidebar .nav .divider {
+    font-size: 0;
+    border-bottom: 1px solid #ddd;
+    margin: 20px 20px; }
+  .sidebar .nav .divider:first-child,
+  .sidebar .nav .divider:last-child,
+  .sidebar .nav .divider + .divider {
+    display: none; }
+  .sidebar .nav .dropdown-header {
+    font-weight: 600;
+    font-size: 0.8em;
+    margin-bottom: 4px;
+    text-transform: uppercase; }
+  .sidebar .nav > li > a {
+    padding: 6px 20px; }
+  .sidebar .nav > li.active {
+    font-weight: 700; }
+  .sidebar .nav > li > a:hover,
+  .sidebar .nav > li > a:focus {
+    background-color: #eee; }

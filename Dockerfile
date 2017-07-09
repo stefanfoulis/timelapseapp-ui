@@ -1,22 +1,25 @@
-FROM node:7.10.0
+FROM node:8-alpine
 
-COPY stack /app/stack
-RUN /app/stack/watchman.sh
-
-WORKDIR /app
-COPY package.json .
-COPY yarn.lock .
-RUN yarn install
-
-COPY . /app
-
-ENV PATH=/node_modules/.bin:$PATH
-RUN yarn run build
-
-ENV PORT=80 \
+ENV PATH=/node_modules/.bin:$PATH \
+    PORT=80 \
     HOST=0.0.0.0 \
-    BROWSER='none'
+    BROWSER=none
 
 EXPOSE 80
 
-CMD yarn run start:server
+COPY watchman /usr/local/bin/watchman
+RUN mkdir -p /app
+COPY package.json /app/package.json
+COPY yarn.lock /app/yarn.lock
+RUN ln -s /app/package.json /package.json && \
+    ln -s /app/yarn.lock /yarn.lock && \
+    mkdir -p /usr/local/var/run/watchman && \
+    cd / && \
+    yarn install
+
+WORKDIR /app
+COPY . /app
+
+# RUN yarn build
+
+CMD ["yarn", "start:server"]

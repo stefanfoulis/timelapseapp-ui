@@ -1,7 +1,7 @@
 version: "2"
 
 services:
-  base_build:
+  image:
     build: "."
     image: stefanfoulis/timelapseapp-ui:local
     command: "true"
@@ -9,17 +9,16 @@ services:
   base: &BASE
     image: stefanfoulis/timelapseapp-ui:local
     depends_on:
-      - "base_build"
+      - "image"
     command: bash
     volumes:
-      - "timelapseapp-ui-src-sync:/app:nocopy"
+      - ".:/app:delegated"
 
   web:
     <<: *BASE
-    command: npm start
+    command: yarn start
+    ports:
+      - "8054:80"
     environment:
+      REACT_APP_BACKEND_ENDPOINT: https://timelapseapp-backend.divio.me/graphql/
       VIRTUAL_HOST: timelapseapp-ui.divio.me
-
-volumes:
-  timelapseapp-ui-src-sync:
-    external: true

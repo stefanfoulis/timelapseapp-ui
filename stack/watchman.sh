@@ -1,4 +1,6 @@
 #!/bin/bash
+# This script is currently not used. With the new alpine based image we just
+# includes a binary in the git repo.
 set -e
 set -x
 
