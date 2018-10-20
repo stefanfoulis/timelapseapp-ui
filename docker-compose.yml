@@ -14,11 +14,15 @@ services:
     volumes:
       - ".:/app:delegated"
 
+  cli:
+    <<: *BASE
+    command: ash
+
   web:
     <<: *BASE
     command: yarn start
     ports:
       - "8054:80"
     environment:
-      REACT_APP_BACKEND_ENDPOINT: https://timelapseapp-backend.divio.me/graphql/
-      VIRTUAL_HOST: timelapseapp-ui.divio.me
+      REACT_APP_BACKEND_ENDPOINT: https://timelapseapp-backend.local.foul.is/graphql/
+      VIRTUAL_HOST: timelapseapp-ui.local.foul.is
